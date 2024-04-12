@@ -2,7 +2,13 @@ package com.example.data_web.ui.CatFact
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -22,8 +28,28 @@ fun SingleCatFact(){
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(text = viewModel.currentCatFactString)
-            Button(onClick = { viewModel.getRandomFact() }) {
-                Text("Fetch a fact")
+            Row() 
+            {
+                Button(onClick = { viewModel.saveRandomFact()
+                println(viewModel.factArray)}) {
+                    Text(text = "Save a fact")
+                }
+                Button(onClick = { viewModel.getRandomFact() }) {
+                Text("Fetch a fact") 
+                } 
+                
+            }
+            Text(text = "~ Facts ~")
+            Text(text = "${viewModel.factArray.size}")
+            
+            Spacer(modifier = Modifier
+                .fillMaxWidth()
+                .height(10.dp))
+
+            LazyColumn() {
+                items(viewModel.factArray.size) { index ->
+                    Text(text = viewModel.factArray[index] + "\n")
+                }
             }
         }
     }

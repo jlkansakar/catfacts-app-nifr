@@ -18,7 +18,7 @@ class CatFactsViewModel : ViewModel() {
     private val catFactsRepository = CatFactsRepository();
     var currentCatFactString: String by mutableStateOf("Press the button to get a cat fact!")
         private set;
-
+    var factArray = mutableStateListOf<String>()
     fun getRandomFact() {
         viewModelScope.launch {
             try {
@@ -29,5 +29,10 @@ class CatFactsViewModel : ViewModel() {
                 currentCatFactString = e.message.toString()
             }
         }
+    }
+
+    fun saveRandomFact() {
+
+        factArray.add(currentCatFactString)
     }
 }
